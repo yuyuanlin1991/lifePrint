@@ -2,17 +2,17 @@
  * Created by yuyuanlin on 2017/9/30.
  *用于处理
  */
-var expenseItem = require('../model/expenseItem');
+var expense = require('../model/expense');
 
-var expenseItem_service = {
+var expense_service = {
     getAll:function(userid){
         return new Promise((resolve, reject) => {
-            expenseItem
+            expense
                 .forge()
                 .where('userId',userid)
                 .fetchAll()
-                .then(function(expenseItems) {
-                    resolve(expenseItems);
+                .then(function(expenses) {
+                    resolve(expenses);
                 })
                 .catch(function(err) {
                   reject(err);
@@ -21,15 +21,16 @@ var expenseItem_service = {
     },
     addOne:function(detail,money,eid,expenseTime,userid){
         return new Promise((resolve, reject) => {
-          new expenseItem({
+          new expense({
               detail:detail,
               eid:eid,
               expense:money,
               userId:userid,
               expenseTime:expenseTime,
             })
-            .save(null,{method: 'insert'})
+            .save(null,{method: 'insert',require:true})
             .then(function(model){
+                console.log(model.attributes);
                 resolve(model.attributes);
             })
             .catch(function(err) {
@@ -50,10 +51,10 @@ var expenseItem_service = {
             tempObj.expenseTime = expenseTime;
         }
         return new Promise((resolve, reject) => {
-            expenseItem
+            expense
                 .forge()
                 .where('eid','=',eid)
-                .save(tempObj,{method:'update'})
+                .save(tempObj,{method:'update',require:true})
                 .then((result)=>{
                     resolve(result)
                 })
@@ -64,10 +65,10 @@ var expenseItem_service = {
     },
     deleteOne:function(eid){
         return new Promise((resolve, reject) => {
-            expenseItem
+            expense
                 .forge()
                 .where('eid','=',eid)
-                .destroy()
+                .destroy({require:true})
                 .then((result)=>{
                     resolve(result)
                 })
@@ -77,4 +78,4 @@ var expenseItem_service = {
         })
     }
 }
-module.exports = expenseItem_service;
+module.exports = expense_service;

@@ -5,7 +5,7 @@ var bookshelf = require('../lib/bookshelf');
 const user = bookshelf.Model.extend({
     tableName:'user',
     idAttribute: 'uid',//主键
-    hasTimestamps: true,
+    hasTimestamps: ['createTime','updateTime'],
     require:true
 })
 module.exports = user;

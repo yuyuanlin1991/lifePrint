@@ -2,7 +2,7 @@
  * Created by yuyuanlin on 2017/11/1.
  */
 var user = require('../model/user.js');
-var etil = require('./etils');
+var etil = require('./tils');
 
 var userService = {
     checkIfExist: function (userName) {
