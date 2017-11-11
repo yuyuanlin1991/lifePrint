@@ -5,7 +5,7 @@
 
 var express = require('express');
 var router = express.Router();
-var expense = require('../lib/expense_service.js');
+var expense = require('../service/expense_service.js');
 var tils = require('../lib/tils.js');
 router.get('/', function (req, res) {
     var userid = req.session.user?req.session.user.uid:null;
@@ -36,8 +36,9 @@ router.post('/', function (req, res) {
     var expenseTime = req.body.expenseTime;
     var eid = tils.newUuid();
     var userid = req.session.user?req.session.user.uid:null;
+    var category = req.body.category;
     if(userid){
-        expense.addOne(detail, money, eid,expenseTime,userid)
+        expense.addOne(detail, money, eid,expenseTime,userid,category)
             .then((result) => {
                 res.send({
                     data: result,
@@ -63,8 +64,9 @@ router.put('/:eid', function (req, res) {
     var money = req.body.expense?req.body.expense:null;
     var expenseTime = req.body.expenseTime?req.body.expenseTime:null;
     var userid = req.session.user?req.session.user.uid:null;
+    var category = req.body.category?req.body.category:null;
     if(userid) {
-        expense.updateOne(eid, detail, money, expenseTime)
+        expense.updateOne(eid, detail, money, expenseTime,category)
             .then((result) => {
                 res.send({
                     data: result,

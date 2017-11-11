@@ -5,10 +5,16 @@
 
 var express = require('express');
 var router = express.Router();
-var useService = require('../lib/user_service.js');
+var useService = require('../service/user_service.js');
+var etil = require('../lib/tils');
 router.post('/register', function (req, res) {
     var userName = req.body.userName;
-    var passWord = req.body.password;
+    var password = req.body.password;
+    var saveObject = {
+        userName:userName,
+        password:password,
+        type:0
+    };
     useService.checkIfExist(userName)
         .then(function (result) {
             if (result.ifExist) {
@@ -17,7 +23,7 @@ router.post('/register', function (req, res) {
                     message: "用户名已经存在！"
                 });
             } else {
-                useService.saveUser(userName, passWord, 0, 'insert')
+                useService.save(saveObject)
                     .then((data) => {
                         req.session.user = data;
                         res.send({
@@ -76,6 +82,41 @@ router.get('/logOut',function(req,res){
         message:"退出登录成功",
         status:0
     })
+});
+router.post('/editInfo',function(req,res){
+    var userid = req.session.user?req.session.user.uid:null;
+    var modifyObject = {
+        uid:userid,
+        nickName:req.body.nickName?req.body.nickName:null,
+        age :req.body.age?req.body.age:null,
+        province:req.body.province?req.body.province:null,
+        city:req.body.city?req.body.city:null,
+        email:req.body.email?req.body.email:null,
+        address:req.body.address?req.body.address:null,
+        sex:req.body.sex?req.body.sex:null
+    };
+    if(userid){
+        useService.save(modifyObject)
+            .then((data)=>{
+            res.send({
+                data: data,
+                status: 0,
+                message: "操作成功"
+            });
+        })
+        .catch((err)=>{
+            res.send({
+                status: -1,
+                message: "操作失败"
+            });
+            console.log(err);
+        })
+    }else{
+        res.send({
+            status: -1,
+            message:"请先登录再修改自己的个人信息！"
+        });
+    }
 });
 
 module.exports = router;

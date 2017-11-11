@@ -1,6 +1,6 @@
 /**
  * Created by yuyuanlin on 2017/9/30.
- *用于处理
+ *用于处理花费相关的接口
  */
 var expense = require('../model/expense');
 
@@ -19,7 +19,7 @@ var expense_service = {
                  });
         });
     },
-    addOne:function(detail,money,eid,expenseTime,userid){
+    addOne:function(detail,money,eid,expenseTime,userid,category){
         return new Promise((resolve, reject) => {
           new expense({
               detail:detail,
@@ -27,6 +27,7 @@ var expense_service = {
               expense:money,
               userId:userid,
               expenseTime:expenseTime,
+              category:category
             })
             .save(null,{method: 'insert',require:true})
             .then(function(model){
@@ -38,7 +39,7 @@ var expense_service = {
             });
         });
     },
-    updateOne:function(eid,detail,money,expenseTime){
+    updateOne:function(eid,detail,money,expenseTime,category){
         let tempObj = {};
         tempObj.eid = eid;
         if(money){

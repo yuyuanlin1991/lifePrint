@@ -1,8 +1,9 @@
 /**
  * Created by yuyuanlin on 2017/11/1.
+ * 用于处理用户相关的接口
  */
 var user = require('../model/user.js');
-var etil = require('./tils');
+var etil = require('../lib/tils');
 
 var userService = {
     checkIfExist: function (userName) {
@@ -42,21 +43,16 @@ var userService = {
                 })
         })
     },
-    saveUser: function (userName, password, type,method) {
-        return new Promise((resolve, reject) => {
-            var data = {
-                uid: etil.newUuid(),
-                userName: userName,
-                password: password,
-                type: type
-            };
-            new user(data)
-                .save(null,{method: method})
-                .then(() => {
-                    resolve(data);
+    save:function(saveObject){
+        return new Promise((resolve,reject)=>{
+            user.forge(saveObject.uid?{uid:saveObject.uid}:{})
+                .save(saveObject)
+                .then((result)=>{
+                  console.log(result);
+                  resolve(result);
                 })
-                .catch((err) => {
-                    reject(err);
+                .catch((err)=>{
+                  reject(err)
                 })
         })
     }
