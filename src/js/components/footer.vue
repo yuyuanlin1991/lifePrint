@@ -1,11 +1,11 @@
 
 <style lang = "scss">
     .footer{
-      height:85px;
+      height:45px;
       background-color:#424242;
       width:100%;
       color: #E0E0E0;
-      padding-top: 75px;
+      padding-top: 25px;
     }
 </style>
 <template>

@@ -10,11 +10,10 @@ var SpritesmithPlugin = require('webpack-spritesmith');    //雪碧图的插件
 const DEBUG = process.env.NODE_ENV == 'production';        //设置环境变量（生产还是发布）
 
 var webpackConfig = {
+    devtool: 'source-map',
     entry: {
         page: __dirname +"/src/js/main.js", //入口文件通常是作为启动页
-        vue: __dirname +'/node_modules/vue/dist/vue.js'
     },
-    devtool: 'source-map',
     output: {
         path: __dirname + "/bin/public",
         filename: "js/[id].bundle.js",
@@ -68,7 +67,7 @@ var webpackConfig = {
             template: './src/vender/index.html', //构建html模板,这里其实可以传参到html中（ejs类似的模板）
             filename:'vender/index.html',    //
             inject: 'body',
-            chunks: ['vue', 'page'],
+            chunks: ['page'],
         }),
         new ExtractTextPlugin("[name].css")
     ]

@@ -5,9 +5,9 @@
 require("../css/index.css");
 require("../css/main.scss");
 import Vue from 'vue'
-import header from './header.vue'
-import footer from './footer.vue'
-import content from './content.vue'
+import header from './components/header.vue'
+import footer from './components/footer.vue'
+import content from './home.vue'
 var app = new Vue({
     el: '#app',
     data: {},

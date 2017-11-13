@@ -3,6 +3,7 @@
     .content{
         min-height:600px;
         width:100%;
+        clear:both;
     }
 </style>
 <template>
@@ -14,9 +15,9 @@
 </template>
 
 <script>
-    import initPage from './initPage.vue'
-    import addList from './addList.vue'
-    import showItems from './showItems.vue'
+    import initPage from './components/initPage.vue'
+    import addList from './components/addList.vue'
+    import showItems from './components/showItems.vue'
     var contentData = {
         init:true,
         add:false,
