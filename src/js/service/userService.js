@@ -5,8 +5,8 @@ import axios from 'axios';
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 var qs = require('qs');
 var userService = {
-    regist:function(success,error){
-        axios.get('/user/info')
+    regist:function(param,success,error){
+        axios.post('/user/register',qs.stringify(param))
             .then((data)=>{
             success(data.data);
             })

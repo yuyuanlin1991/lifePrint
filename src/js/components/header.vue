@@ -86,9 +86,11 @@
             <ul class = "header-tab">
                 <li class ="contactUs" ><a href="#contanUs">联系我们</a></li>
                 <li class = "userName" @click.self = "userEvent" :title = "userName">{{userName}}
-                    <login v-if="ifLogin"></login>
+                    <login v-if="panelLogin" :panel-type = "'login'"></login>
                 </li>
-                <li class = "userStatusMsg" @click.self = "statusEvent">{{status}}</li>
+                <li class = "userStatusMsg" @click.self = "statusEvent">{{status}}
+                    <login v-if="panelRegister" :panel-type = "'register'"></login>
+                </li>
             </ul>
     </div>
 </template>
@@ -101,7 +103,8 @@
         status: null,
         uid: null,
         password:null,
-        ifLogin:false,
+        panelLogin:false,
+        panelRegister:false,
         userEvent(){},
         statusEvent(){},
     };
@@ -123,13 +126,20 @@
         },
         methods: {
             login: function () {
-                this.ifLogin = !this.ifLogin;
+                this.panelLogin = !this.panelLogin;
+                if(this.panelRegister){
+                    this.panelRegister = !this.panelRegister;
+                }
                 return false;
             },
             logOut:function(){
                 console.log('登出');
             },
             register: function () {
+                this.panelRegister = !this.panelRegister;
+                if(this.panelLogin){
+                    this.panelLogin = !this.panelLogin;
+                }
                 console.log('注册');
             },
             goUserCenter:function(){
