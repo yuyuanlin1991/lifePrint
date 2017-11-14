@@ -5,7 +5,41 @@ html{
   background-color: #E0E0E0;
   body{
     margin:0;
+
   }
+  input{
+    width: 200px;
+    height:30px;
+    border:none;
+    padding-left:10px;
+  }
+  .btn-default{
+    border-radius: 5px;
+    background-color: #ffffff;
+    border: 1px solid #f79eb5;
+    height: 30px;
+    padding-left:10px;
+    padding-right:10px;
+    &:hover{
+      background-color: #f79eb5;
+      border-color: #f37293;
+      color:#ffffff;
+    }
+  }
+  .btn-primary{
+    border-radius: 3px;
+    background-color: #f79eb5;
+    border: 1px solid #f37293;
+    height: 30px;
+    padding-left:10px;
+    padding-right:10px;
+    &:hover{
+      background-color: #f37293;
+      border-color: #f37293;
+      color:#ffffff;
+    }
+  }
+
 }
 
 .app{

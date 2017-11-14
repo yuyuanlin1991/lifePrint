@@ -29,12 +29,51 @@
                 display: inline-block;
                 vertical-align: middle;
                 padding:0 20px;
+                &:hover{
+                    color:#FFFFFF;
+                }
                 a{
                     color:#E0E0E0;
                     text-decoration:none;
                 }
                 a:hover{
                     color:#FFFFFF;
+                }
+            }
+            .login-panel{
+                position:absolute;
+                z-index:99;
+                right:30px;
+                top:60px;
+                background-color: #f8f8f8;
+                color:black;
+            }
+        }
+        form{
+            width: 300px;
+            height:260px;
+            .form-title{
+                font-size: 20px;
+                text-align: center;
+                padding: 0;
+                margin: 0;
+                height:60px;
+                line-height: 60px;
+            }
+            .form-item{
+                font-size: 18px;
+                margin:0;
+                height:60px;
+                line-height: 60px;
+                text-align: center;
+                span{
+                    display: inline-block;
+                    width:60px;
+                    padding-right:10px;
+                    text-align: left;
+                }
+                button{
+                    margin:0 10px;
                 }
             }
         }
@@ -46,41 +85,80 @@
         <div class = "logo">生活·足迹</div>
             <ul class = "header-tab">
                 <li class ="contactUs" ><a href="#contanUs">联系我们</a></li>
-                <li class = "userName" v-on:click = "login"><a href="#userInfo">{{userData.userName}}</a></li>
-                <li class = "userStatusMsg" v-on:click = "register">{{userData.status}}</li>
+                <li class = "userName" @click.self = "userEvent" :title = "userName">{{userName}}
+                    <login v-if="ifLogin"></login>
+                </li>
+                <li class = "userStatusMsg" @click.self = "statusEvent">{{status}}</li>
             </ul>
     </div>
 </template>
 
 <script>
-
+    import userService  from  '../service/userService';
+    import login from './loginPanel'
+    var _userData = {
+        userName: null,
+        status: null,
+        uid: null,
+        password:null,
+        ifLogin:false,
+        userEvent(){},
+        statusEvent(){},
+    };
     export default {
-        props:['userData'],
-        beforeCreate:function(){console.log('beforeCreate');},
-        beforeMount:function(){console.log('beforeMount')},
-        mount:function(){console.log('mount')},
-        methods:{
-            login:function(){
-                if(this.userData.uid){
-                    //跳转到个人中心页面
-                    console.log(this.userData.uid);
-                }else{
-                    //出现登陆的下拉框
-                }
+        data: function () {
+            return _userData ;
+        },
+        beforeCreate: function () {
+            console.log('beforeCreate');
+        },
+        created: function () {
+            console.log('create');
+        },
+        beforeMount: function () {
+            console.log('beforeMount');
+        },
+        mounted:function(){
+            this.getUserInfo();
+        },
+        methods: {
+            login: function () {
+                this.ifLogin = !this.ifLogin;
+                return false;
             },
-            register:function(){
-                if(this.userData.uid){
-                    //注销的接口并刷新
-                    console.log("注销"+this.userData.uid);
-
-                }else{
-                    console.log('========');
-                }
+            logOut:function(){
+                console.log('登出');
             },
-            getUserInfo:()=>{
-                console.log('+++++++');
-
-            }
+            register: function () {
+                console.log('注册');
+            },
+            goUserCenter:function(){
+                console.log('去个人中心');
+            },
+            getUserInfo: function () {
+                var vm =this;
+                userService.getUser((user)=>{
+                    console.log(user);
+                    if (user.status == 0) {
+                    vm.userName= user.data.userName;
+                    vm.status= '注销';
+                    vm.uid=user.data.uid;
+                    vm.userEvent = vm.goUserCenter;
+                    vm.statusEvent = vm.logOut;
+                    } else {
+                    vm.userName= "登录";
+                    vm.status= "注册";
+                    vm.uid=null;
+                    vm.userEvent = vm.login;
+                    vm.statusEvent = vm.register;
+                    }
+                }, function (err) {
+                    console.log(err);
+                })
+            },
+        },
+        components:{
+            'login':login,
         }
     }
 </script>
