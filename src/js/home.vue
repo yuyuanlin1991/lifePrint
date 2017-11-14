@@ -18,6 +18,7 @@
     import initPage from './components/initPage.vue'
     import addList from './components/addList.vue'
     import showItems from './components/showItems.vue'
+
     var contentData = {
         init:true,
         add:false,

@@ -98,24 +98,40 @@ router.post('/editInfo',function(req,res){
     if(userid){
         useService.save(modifyObject)
             .then((data)=>{
-            res.send({
-                data: data,
-                status: 0,
-                message: "操作成功"
-            });
-        })
-        .catch((err)=>{
-            res.send({
-                status: -1,
-                message: "操作失败"
-            });
-            console.log(err);
-        })
+                res.send({
+                    data: data,
+                    status: 0,
+                    message: "操作成功"
+                });
+            })
+            .catch((err)=>{
+                res.send({
+                    status: -1,
+                    message: "操作失败"
+                });
+                console.log(err);
+            })
     }else{
         res.send({
             status: -1,
             message:"请先登录再修改自己的个人信息！"
         });
+    }
+});
+router.get('/info',function(req,res){
+    if(req.session.user){
+        res.send({
+            data:{uid:req.session.user.uid,
+            userName:req.session.user.userName,
+            nickName:req.session.user.nickName
+            },
+            status:0
+        })
+    }else{
+        res.send({
+            message:"用户未登录",
+            status:-1
+        })
     }
 });
 

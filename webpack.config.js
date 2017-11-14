@@ -10,21 +10,21 @@ var SpritesmithPlugin = require('webpack-spritesmith');    //雪碧图的插件
 const DEBUG = process.env.NODE_ENV == 'production';        //设置环境变量（生产还是发布）
 
 var webpackConfig = {
-    devtool: 'source-map',
+    devtool: 'inline-source-map',
     entry: {
         page: __dirname +"/src/js/main.js", //入口文件通常是作为启动页
     },
     output: {
         path: __dirname + "/bin/public",
         filename: "js/[id].bundle.js",
-        sourceMapFilename: 'js/maps/[name].map',
+        sourceMapFilename: 'js/maps/[id].map',
         chunkFilename: '[id].js?[chunkhash]'
     },
     module: {
         loaders: [
             {
                 test: /\.(js|jsx)$/,
-                use: 'babel-loader?sourceMap',
+                use: 'babel-loader',
                 exclude: /node_modules/,
             },
             {
@@ -39,7 +39,7 @@ var webpackConfig = {
                 test: /\.scss$/,
                 use:ExtractTextPlugin.extract({
                     fallback: "style-loader",
-                    use: ["css-loader","sass-loader?sourceMap"],
+                    use: ["css-loader","sass-loader"],
                 }),
                 exclude: /node_modules/,
             },
@@ -49,7 +49,7 @@ var webpackConfig = {
             },
             {
                 test: /\.vue$/,
-                loader: 'vue-loader?sourceMap',
+                loader: 'vue-loader',
                 exclude: /node_modules/
             }
 
@@ -58,7 +58,7 @@ var webpackConfig = {
     resolve: {
         extensions: ['.js', '.vue','.css','.scss','.html'],    //告诉webpack哪些类型的文件是需要加载的
         alias: {
-            'vue$': 'vue/dist/vue.common.js'
+            'vue$': 'vue/dist/vue.esm.js'
         },
     },
     plugins: [
