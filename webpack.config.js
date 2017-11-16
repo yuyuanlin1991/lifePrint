@@ -12,7 +12,8 @@ const DEBUG = process.env.NODE_ENV == 'production';        //设置环境变量�
 var webpackConfig = {
     devtool: 'inline-source-map',
     entry: {
-        page: __dirname +"/src/js/main.js", //入口文件通常是作为启动页
+        index: __dirname +"/src/js/main.js", //入口文件通常是作为启动页
+        manage:__dirname +"/src/js/manage.js",
     },
     output: {
         path: __dirname + "/bin/public",
@@ -68,7 +69,13 @@ var webpackConfig = {
             template: './src/vender/index.html', //构建html模板,这里其实可以传参到html中（ejs类似的模板）
             filename:'vender/index.html',    //
             inject: 'body',
-            chunks: ['page'],
+            chunks: ['index'],
+        }),
+        new HtmlWebpackPlugin({
+            template: './src/vender/manage.html', //构建html模板,这里其实可以传参到html中（ejs类似的模板）
+            filename:'vender/manage.html',    //
+            inject: 'body',
+            chunks: ['manage'],
         }),
         new ExtractTextPlugin("[name].css")
     ]

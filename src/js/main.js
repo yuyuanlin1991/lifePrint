@@ -2,14 +2,17 @@
 /**
  * Created by yuyuanlin on 2017/9/25.
  */
-require("../css/index.css");
-require("../css/main.scss");
+require("../css/base.scss");
 import Vue from 'vue'
 import header from './components/header.vue'
 import footer from './components/footer.vue'
 import home from './pages/home.vue'
 import aboutUs from './pages/aboutUs.vue'
 import expense from './pages/expense.vue'
+import VueRouter from 'vue-router'
+
+Vue.use(VueRouter)
+
 Vue.config.devtools = true;
 
 const routes = {
