@@ -5,41 +5,49 @@ import axios from 'axios';
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 var qs = require('qs');
 var userService = {
-    regist:function(param,success,error){
-        axios.post('/user/register',qs.stringify(param))
-            .then((data)=>{
-            success(data.data);
-            })
-            .catch((err)=>{
-            error(err);
-            })
+    regist:function(param){
+        return new Promise((resolve,reject)=>{
+            axios.post('/user/register',qs.stringify(param))
+                .then((data)=>{
+                    resolve(data.data);
+                })
+                .catch((err)=>{
+                    reject(err);
+                })
+        });
     },
-    login:function(param,success,error){
-        axios.post('/user/login',qs.stringify(param))
-            .then((data)=>{
-                success(data.data);
-            })
-            .catch((err)=>{
-                error(err);
-            })
+    login:function(param){
+        return new Promise((resolve,reject)=>{
+            axios.post('/user/login',qs.stringify(param))
+                .then((data)=>{
+                    resolve(data.data);
+                })
+                .catch((err)=>{
+                    reject(err);
+                })
+        });
     },
-    logOut:function(success,error){
-        axios.get('/user/logOut')
-            .then((data)=>{
-               success(data.data);
-            })
-            .catch((err)=>{
-            error(err);
-            })
+    logOut:function(){
+        return new Promise((resolve,reject)=>{
+            axios.get('/user/logOut')
+                .then((data)=>{
+                    resolve(data.data);
+                })
+                .catch((err)=>{
+                    reject(err);
+                })
+        });
     },
-    getUser:function(success,error){
-        axios.get('/user/info')
-            .then((data)=>{
-                success(data.data);
-            })
-            .catch((err)=>{
-            error(err);
-            })
+    getUser:function(){
+        return new Promise((resolve,reject)=>{
+            axios.get('/user/info')
+                .then((data)=>{
+                    resolve(data.data);
+                })
+                .catch((err)=>{
+                    reject(err);
+                })
+        });
     }
 
 };

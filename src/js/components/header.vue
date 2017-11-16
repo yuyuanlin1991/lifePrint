@@ -86,10 +86,10 @@
             <ul class = "header-tab">
                 <li class ="contactUs" ><a href="#contanUs">联系我们</a></li>
                 <li class = "userName" @click.self = "userEvent" :title = "userName">{{userName}}
-                    <login v-if="panelLogin" :panel-type = "'login'"></login>
+                    <login v-if="panelLogin" :login-panel = "1" @success = "loginSuccess"></login>
                 </li>
                 <li class = "userStatusMsg" @click.self = "statusEvent">{{status}}
-                    <login v-if="panelRegister" :panel-type = "'register'"></login>
+                    <login v-if="panelRegister" :login-panel = "0"></login>
                 </li>
             </ul>
     </div>
@@ -133,7 +133,23 @@
                 return false;
             },
             logOut:function(){
-                console.log('登出');
+                let vm = this;
+               userService.logOut()
+                   .then((result) => {
+                        console.log(result);
+                       if (result.status == 0) {
+                           vm.userName = "登录";
+                           vm.status = "注册";
+                           vm.uid = null;
+                           vm.userEvent = vm.login;
+                           vm.statusEvent = vm.register;
+                       } else {
+                           console.log("退出失败");
+                       }
+                   })
+                   .catch((err) => {
+                       console.log(err);
+                   })
             },
             register: function () {
                 this.panelRegister = !this.panelRegister;
@@ -147,25 +163,35 @@
             },
             getUserInfo: function () {
                 var vm =this;
-                userService.getUser((user)=>{
-                    console.log(user);
-                    if (user.status == 0) {
-                    vm.userName= user.data.userName;
-                    vm.status= '注销';
-                    vm.uid=user.data.uid;
-                    vm.userEvent = vm.goUserCenter;
-                    vm.statusEvent = vm.logOut;
-                    } else {
-                    vm.userName= "登录";
-                    vm.status= "注册";
-                    vm.uid=null;
-                    vm.userEvent = vm.login;
-                    vm.statusEvent = vm.register;
-                    }
-                }, function (err) {
-                    console.log(err);
-                })
+                userService.getUser()
+                    .then((user)=>{
+                        console.log(user);
+                        if (user.status == 0) {
+                            vm.userName= user.data.userName;
+                            vm.status= '退出';
+                            vm.uid=user.data.uid;
+                            vm.userEvent = vm.goUserCenter;
+                            vm.statusEvent = vm.logOut;
+                        } else {
+                            vm.userName= "登录";
+                            vm.status= "注册";
+                            vm.uid=null;
+                            vm.userEvent = vm.login;
+                            vm.statusEvent = vm.register;
+                        }
+                    })
+                    .catch((err)=>{
+                        console.log(err);
+                    })
             },
+            loginSuccess:function(data){
+                this.userName= data.userName;
+                this.status= '退出';
+                this.uid=data.uid;
+                this.userEvent = this.goUserCenter;
+                this.statusEvent = this.logOut;
+                this.login();
+            }
         },
         components:{
             'login':login,
