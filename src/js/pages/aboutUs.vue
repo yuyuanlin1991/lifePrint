@@ -13,11 +13,10 @@
         <show-items v-if="show" :init = "init" :add = "add" :show = "show" :list="list" @change="contentChange"></show-items>
     </div>
 </template>
-
 <script>
-    import initPage from './components/initPage.vue'
-    import addList from './components/addList.vue'
-    import showItems from './components/showItems.vue'
+    import initPage from '../components/initPage.vue'
+    import addList from '../components/addList.vue'
+    import showItems from '../components/showItems.vue'
 
     var contentData = {
         init:true,
@@ -35,17 +34,17 @@
             this.show = false;
         },
         components:{
-                'init-page':initPage,
-                'add-item':addList,
-                'show-items':showItems,
-            },
+            'init-page':initPage,
+            'add-item':addList,
+            'show-items':showItems,
+        },
         methods:{
             contentChange:function (data) {
-            this.init = data.init;
-            this.add = data.add;
-            this.show = data.show;
-            this.list = data.list?data.list:[];
+                this.init = data.init;
+                this.add = data.add;
+                this.show = data.show;
+                this.list = data.list?data.list:[];
+            }
         }
-      }
     }
 </script>

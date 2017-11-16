@@ -84,7 +84,7 @@
     <div id="header" class="header">
         <div class = "logo">生活·足迹</div>
             <ul class = "header-tab">
-                <li class ="contactUs" ><a href="#contanUs">联系我们</a></li>
+                <li class ="contactUs" ><a href="#aboutUs">关于我们</a></li>
                 <li class = "userName" @click.self = "userEvent" :title = "userName">{{userName}}
                     <login v-if="panelLogin" :login-panel = "1" @success = "loginSuccess"></login>
                 </li>

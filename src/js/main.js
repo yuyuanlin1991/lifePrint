@@ -7,19 +7,34 @@ require("../css/main.scss");
 import Vue from 'vue'
 import header from './components/header.vue'
 import footer from './components/footer.vue'
-import content from './home.vue'
-import userService  from  './service/userService';
+import home from './pages/home.vue'
+import aboutUs from './pages/aboutUs.vue'
+import expense from './pages/expense.vue'
 Vue.config.devtools = true;
+
+const routes = {
+    '/': 'my-home',
+    '#aboutUs': 'my-aboutUs',
+    '#userCenter':'my-center',
+    '#expense':'my-expense',
+    '#plan':'my-plan',
+
+};
 var app = new Vue({
     el: '#app',
-    data: {},
+    data: {
+        content: routes[window.location.hash?window.location.hash: window.location.pathname]
+    },
     methods: {},
-    beforeCreate:function(){console.log('AppBeforeCreate')},
-    beforeMount:function(){console.log('AppBeforeMount')},
+    beforeCreate:function(){console.log('AppBeforeCreate---'+window.location.hash)},
+    beforeMount:function(){console.log(this.content);},
+    mounted:function(){},
     components: {
         'my-header':header,
         'my-footer':footer,
-        'my-content':content,
+        'my-home':home,
+        'my-aboutUs':aboutUs,
+        'my-expense':expense,
     }
 });
 
