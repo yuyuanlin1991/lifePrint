@@ -62,7 +62,8 @@ var webpackConfig = {
         },
     },
     plugins: [
-        new CleanWebpackPlugin(['./bin/public/js/*','./bin/public/vender/*']),
+        new CleanWebpackPlugin(['./bin/public/*']),
+        new CopyWebpackPlugin([{from:__dirname + '/src/img/*',to:__dirname + "/bin/public/img",flatten:true}]),
         new HtmlWebpackPlugin({
             template: './src/vender/index.html', //构建html模板,这里其实可以传参到html中（ejs类似的模板）
             filename:'vender/index.html',    //
