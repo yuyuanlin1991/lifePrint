@@ -33,7 +33,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', function (req, res) {
   res.render("vender/index.html");
 });
-app.get('/manage.html', function (req, res) {
+
+app.get(/^\/manage.html\/*/, function (req, res) {
     res.render("vender/manage.html");
 });
 

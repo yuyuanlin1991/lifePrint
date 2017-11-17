@@ -10,11 +10,14 @@
             display: inline-block;
             vertical-align: middle;
             font-size: 25px;
-            color:#E0E0E0;
             padding-left:60px;
             font-weight:bold;
-            &:hover{
-                color:#FFFFFF;
+            a{
+                color:#E0E0E0;
+                text-decoration:none;
+                &:hover{
+                    color:#FFFFFF;
+                }
             }
         }
         .header-tab{
@@ -82,9 +85,9 @@
 </style>
 <template>
     <div id="header" class="header">
-        <div class = "logo">生活·足迹</div>
+        <div class = "logo"><router-link to="/home">生活·足迹</router-link></div>
             <ul class = "header-tab">
-                <li class ="contactUs" ><a href="#aboutUs">关于我们</a></li>
+                <li class ="contactUs" ><router-link to="/aboutUs">关于我们</router-link><!--<a v-link="{ path: '/aboutUs'}">关于我们</a>--></li>
                 <li class = "userName" @click.self = "userEvent" :title = "userName">{{userName}}
                     <login v-if="panelLogin" :login-panel = "1" @success = "loginSuccess"></login>
                 </li>
@@ -123,6 +126,7 @@
         },
         mounted:function(){
             this.getUserInfo();
+            console.log(this.$route);
         },
         methods: {
             login: function () {

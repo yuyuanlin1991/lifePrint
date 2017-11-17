@@ -10,19 +10,21 @@ import home from './pages/home.vue'
 import aboutUs from './pages/aboutUs.vue'
 import expense from './pages/expense.vue'
 import VueRouter from 'vue-router'
-
-Vue.use(VueRouter)
-
 Vue.config.devtools = true;
 
-const routes = {
-    '/': 'my-home',
-    '#aboutUs': 'my-aboutUs',
-    '#userCenter':'my-center',
-    '#expense':'my-expense',
-    '#plan':'my-plan',
+Vue.use(VueRouter)
+const routes =[
+    { path: '/', component: home,alias:'/home'},
+    { path: '/home', component: home },
+    { path: '/aboutUs', component: aboutUs },
+    { path:'/expense',component:expense}
+];
+//创建路由实例
+const router = new VueRouter({
+    //mode: 'history',  //优化url的展现形式：#/home-->/home,需要与后台配合以方便返回对的渲染视图
+    routes // （缩写）相当于 routes: routes
+});
 
-};
 var app = new Vue({
     el: '#app',
     data: {
@@ -38,8 +40,9 @@ var app = new Vue({
         'my-home':home,
         'my-aboutUs':aboutUs,
         'my-expense':expense,
-    }
-});
+    },
+    router
+}).$mount('#app'); //路由挂载
 
 
 
