@@ -1,0 +1,22 @@
+{
+  "cards":[
+    {
+      "imgUrl":"/img/expense.png",
+      "routerUrl":"/expense",
+      "cardName":"记账单",
+      "description":"一笔一笔记录，将生活痕迹描绘成画"
+    },
+    {
+      "imgUrl":"/img/plan.png",
+      "routerUrl":"/plan",
+      "cardName":"添计划",
+      "description":"一天一天安排，将明天未来规划成诗"
+    },
+    {
+      "imgUrl":"/img/thoughts.png",
+      "routerUrl":"/thoughts",
+      "cardName":"留随笔",
+      "description":"一字一句叙述，将幸福点滴提炼成糖"
+    }
+  ]
+}

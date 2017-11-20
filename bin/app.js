@@ -30,9 +30,6 @@ app.set('views', path.join(__dirname, 'public'));
 //前端可见的文件夹
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/', function (req, res) {
-  res.render("vender/index.html");
-});
 
 app.get(/^\/manage.html\/*/, function (req, res) {
     res.render("vender/manage.html");
@@ -44,4 +41,8 @@ var server = app.listen(8000, function () {
 console.log('Example app listening at host-'+host+"at port-"+port);
 });
 routers(app);
+//匹配其他的的路由路径--全部返回index.html到前端进行渲染
+app.get('\^/*', function (req, res) {
+    res.render("vender/index.html");
+});
 module.exports = app;
