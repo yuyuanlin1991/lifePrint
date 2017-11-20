@@ -147,6 +147,7 @@
                            vm.uid = null;
                            vm.userEvent = vm.login;
                            vm.statusEvent = vm.register;
+                           this.$store.dispatch('setUser',{userName:null,userId:null});
                        } else {
                            console.log("退出失败");
                        }
@@ -176,12 +177,14 @@
                             vm.uid=user.data.uid;
                             vm.userEvent = vm.goUserCenter;
                             vm.statusEvent = vm.logOut;
+                            this.$store.dispatch('setUser',{userName:user.data.userName,userId:user.data.uid});
                         } else {
                             vm.userName= "登录";
                             vm.status= "注册";
                             vm.uid=null;
                             vm.userEvent = vm.login;
                             vm.statusEvent = vm.register;
+                            this.$store.dispatch('setUser',{userName:null,userId:null});
                         }
                     })
                     .catch((err)=>{

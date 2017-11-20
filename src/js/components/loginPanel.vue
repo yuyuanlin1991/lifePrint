@@ -108,6 +108,7 @@
                         if(userData.status ==0){
                             console.log('登录成功');
                             this.$emit('success', userData.data);
+                            this.$store.dispatch('setUser',{userName:userData.data.userName,userId:userData.data.uid});
                         }else{
                             vm.errMsg = userData.message;
                             console.log("登录失败")
@@ -132,6 +133,7 @@
                         if(result.status ==0){
                             this.$emit('success', result.data);
                             console.log('注册成功');
+                            this.$store.dispatch('setUser',{userName:result.data.userName,userId:result.data.uid});
                         }else{
                             vm.errMsg = result.message;
                         }

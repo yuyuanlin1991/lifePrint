@@ -34,6 +34,9 @@
             },
         methods:{
 
-      }
+      },
+/*        beforeRouteEnter:function(){
+
+        }*/
     }
 </script>
