@@ -87,7 +87,7 @@
     <div id="header" class="header">
         <div class = "logo"><router-link to="/home">生活·足迹</router-link></div>
             <ul class = "header-tab">
-                <li class ="contactUs" ><router-link to="/aboutUs">关于我们</router-link><!--<a v-link="{ path: '/aboutUs'}">关于我们</a>--></li>
+                <li class ="contactUs" ><router-link to="/aboutUs">关于我们</router-link></li>
                 <li class = "userName" @click.self = "userEvent" :title = "userName">{{userName}}
                     <login v-if="panelLogin" :login-panel = "1" @success = "loginSuccess"></login>
                 </li>
@@ -106,8 +106,6 @@
         status: null,
         uid: null,
         password:null,
-        panelLogin:false,
-        panelRegister:false,
         userEvent(){},
         statusEvent(){},
     };
@@ -115,7 +113,7 @@
         data: function () {
             return _userData ;
         },
-        beforeCreate: function () {
+/*        beforeCreate: function () {
             console.log('beforeCreate');
         },
         created: function () {
@@ -123,16 +121,23 @@
         },
         beforeMount: function () {
             console.log('beforeMount');
-        },
+        },*/
         mounted:function(){
             this.getUserInfo();
-            console.log(this.$route);
+        },
+        computed:{
+          panelLogin:function(){
+              return this.$store.getters.getPanelLogin
+          },
+          panelRegister:function(){
+              return this.$store.getters.getPanelRegister
+          }
         },
         methods: {
             login: function () {
-                this.panelLogin = !this.panelLogin;
+                this.$store.dispatch('panelLogin',!this.$store.getters.getPanelLogin);
                 if(this.panelRegister){
-                    this.panelRegister = !this.panelRegister;
+                    this.$store.dispatch('panelRegister',!this.$store.getters.getPanelRegister);
                 }
                 return false;
             },
@@ -157,11 +162,11 @@
                    })
             },
             register: function () {
-                this.panelRegister = !this.panelRegister;
+                this.$store.dispatch('panelRegister',!this.$store.getters.getPanelRegister);
                 if(this.panelLogin){
-                    this.panelLogin = !this.panelLogin;
+                    this.$store.dispatch('panelLogin',!this.$store.getters.getPanelLogin);
                 }
-                console.log('注册');
+                return false;
             },
             goUserCenter:function(){
                 console.log('去个人中心');

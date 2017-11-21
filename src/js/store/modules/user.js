@@ -7,24 +7,37 @@ export default {
     state: {
         userName: null,
         userId:null,
-        message:false
+        panelLogin:false,
+        panelRegister:false,
     },
     mutations: {
         setUser(state, userInfo) {
-            console.log(userInfo);
             state.userName = userInfo.userName;
             state.userId  = userInfo.userId;
         },
-        changeMessage(state,msg){
-            state.message = msg;
+        panelLogin(state,status){
+            console.log("login status:"+status);
+            state.panelLogin = status;
+        },
+        panelRegister(state,status){
+            console.log("register status:"+status);
+            state.panelRegister = status;
         }
     },
     actions:{
         setUser(context,userInfo) {
             context.commit('setUser',userInfo);
         },
-        changeMessage(context,msg){
-            context.commit('changeMessage',msg);
+        panelLogin(context,status){
+            context.commit('panelLogin',status)
+        },
+        panelRegister(context,status){
+            context.commit('panelRegister',status)
         }
+    },
+    getters :{
+        getUserId: state => state.userId,
+        getPanelLogin: state => state.panelLogin,
+        getPanelRegister:state => state.panelRegister
     }
 }

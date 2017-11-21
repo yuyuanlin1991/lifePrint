@@ -35,8 +35,8 @@ var app = new Vue({
         content: routes[window.location.hash?window.location.hash: window.location.pathname]
     },
     methods: {},
-    beforeCreate:function(){console.log('AppBeforeCreate---'+window.location.hash)},
-    beforeMount:function(){console.log(this.content);},
+    beforeCreate:function(){},
+    beforeMount:function(){},
     mounted:function(){},
     components: {
         'my-header':header,
