@@ -32,9 +32,9 @@ var webpackConfig = {
                 test: /\.css$/,
                 use: ExtractTextPlugin.extract({
                     fallback: "style-loader",
-                    use: "css-loader"
+                    use: ["css-loader","sass-loader"]
                 }),
-                exclude: /node_modules/,
+              //  exclude: /node_modules/,
             },
             {
                 test: /\.scss$/,

@@ -6,6 +6,7 @@
       width:100%;
       color: #E0E0E0;
       padding-top: 25px;
+      text-align: center;
     }
 </style>
 <template>

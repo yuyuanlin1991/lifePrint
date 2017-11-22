@@ -4,13 +4,14 @@
  */
 require("../css/base.scss");
 import Vue from 'vue';
+import VueRouter from 'vue-router';
+import store from './store/store.js'
 import header from './components/header.vue';
 import footer from './components/footer.vue';
 import home from './pages/home.vue';
 import aboutUs from './pages/aboutUs.vue';
 import expense from './pages/expense.vue';
-import VueRouter from 'vue-router';
-import store from './store/store.js'
+import thoughts from './pages/thoughts.vue';
 
 Vue.config.devtools = true;
 Vue.use(VueRouter);
@@ -19,7 +20,8 @@ const routes =[
     { path: '/', component: home,alias:'/home'},
     { path: '/home', component: home },
     { path: '/aboutUs', component: aboutUs },
-    { path:'/expense',component:expense}
+    { path:'/expense',component:expense},
+    { path:'/thoughts',component:thoughts}
 ];
 //创建路由实例
 const router = new VueRouter({
